@@ -8,7 +8,11 @@ const ProductList = () => {
     getProduct();
   }, []);
   const getProduct = async () => {
-    let result = await fetch(DATACONSTANT.PRODUCTLIST_URL);
+    let result = await fetch(DATACONSTANT.PRODUCTLIST_URL, {
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    });
     result = await result.json();
     setData(result);
   };
@@ -16,6 +20,9 @@ const ProductList = () => {
   const deleteProduct = async (id) => {
     let result = await fetch(`/product/${id}`, {
       method: "Delete",
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
     });
     result = await result.json();
     if (result) {
@@ -26,7 +33,11 @@ const ProductList = () => {
   const searchHandler = async (e) => {
     let key = e.target.value;
     if (key) {
-      let result = await fetch(`/search/${key}`);
+      let result = await fetch(`/search/${key}`, {
+        headers: {
+          authorization: JSON.parse(localStorage.getItem("token")),
+        },
+      });
       result = await result.json();
       console.log(result);
       setData(result);

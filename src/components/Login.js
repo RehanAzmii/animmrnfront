@@ -5,12 +5,12 @@ import { DATACONSTANT } from "./constant/constant";
 const Login = () => {
   const [data, setData] = useState();
   const navigate = useNavigate();
-  useEffect(() => {
-    const auth = localStorage.getItem("user");
-    if (auth) {
-      navigate("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   const auth = localStorage.getItem("user");
+  //   if (auth) {
+  //     // navigate("/");
+  //   }
+  // }, []);
   const login = async () => {
     let result = await fetch(DATACONSTANT.LOGIN_URL, {
       method: "post",
@@ -24,8 +24,9 @@ const Login = () => {
     });
     result = await result.json();
     console.log(result);
-    if (result.name) {
-      localStorage.setItem("user", JSON.stringify(result));
+    if (result.token) {
+      localStorage.setItem("user", JSON.stringify(result.user));
+      localStorage.setItem("token", JSON.stringify(result.token));
       navigate("/");
     } else {
       alert("please inter correct detail");

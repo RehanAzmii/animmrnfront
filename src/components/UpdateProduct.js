@@ -18,7 +18,11 @@ const UpdateProduct = () => {
   // get method for single filling
   const getProductDetail = async () => {
     // console.log(params);
-    let result = await fetch(`/product/${params?.id}`);
+    let result = await fetch(`/product/${params?.id}`, {
+      headers: {
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
+    });
     result = await result.json();
     setData(result);
     console.log(data);
@@ -34,6 +38,7 @@ const UpdateProduct = () => {
       }),
       headers: {
         "Content-Type": "application/json",
+        authorization: JSON.parse(localStorage.getItem("token")),
       },
     });
     result = await result.json();

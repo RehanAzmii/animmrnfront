@@ -28,7 +28,10 @@ const AddProduct = () => {
         company: product.company,
         userId: userId,
       }),
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: JSON.parse(localStorage.getItem("token")),
+      },
     });
     result = await result.json();
     console.log(result);
